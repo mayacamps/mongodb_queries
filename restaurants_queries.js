@@ -24,7 +24,7 @@ db.restaurants.find({borough: "Bronx"}).skip(5).limit(5)
 db.restaurants.find({"grades.score" : {$gt : 90}})
 
 //9 - Find restaurants that have a score of more than 80 but less than 100
-db.restaurants.find({"grades.score" : {$gt : 80, $not : {$gte : 100}}})
+db.restaurants.find({"grades.score" : {$gt : 80, $lt: 100}})
 
 //10 - Find restaurants that are located at a latitude value less than -95.754168
 db.restaurants.find({"address.coord.0" : {$lt : -95.754168}})
@@ -37,7 +37,7 @@ db.restaurants.find({$and: [{cuisine: {$not : /^American/}}, {"grades.score" : {
 db.restaurants.find({cuisine: {$not : /^American/}, "grades.score" : {"$gt" : 70}, "address.coord.1" : {$lt : -65.754168}})
 
 //13 - Find restaurants that do not serve any "American" cuisine and received an "A" grade point not belonging to Brooklyn. The document should be displayed according to cuisine in descending order
-db.restaurants.find({cuisine: {$not : /^American/}, "grades.grade" : "A", borough : {$ne :"Brooklyn"}})
+db.restaurants.find({cuisine: {$not : /^American/}, "grades.grade" : "A", borough : {$ne :"Brooklyn"}}).sort({cusiine: -1})
 
 //14 - Find the restaurant_id, name, borough and cuisine for those restaurants that contain "Wil" as the first three letters in their name
 db.restaurants.find({name: /^Wil/i}, {restaurant_id : 1, name : 1, borough : 1, cuisine : 1})
